@@ -1,0 +1,1032 @@
+{
+  "date": "2026-10-28",
+  "timezone": "Asia/Shanghai",
+  "scope": "One signed-in OfficeAce account; direct gateway requests; credentials and account identifiers omitted.",
+  "method": {
+    "shortPrompt": "Reply OK.",
+    "longPrompt": " a repeated inputRepeatCount times, followed by Reply OK.",
+    "stream": false,
+    "timeoutSeconds": 90,
+    "note": "Timeout varies by batch: initial availability 25s, max_tokens 20s, overlength 45s, intermediate GLM 60s, long success 90s. Token counts are server usage, not repetition counts. Reception tests do not measure retrieval quality."
+  },
+  "records": [
+    {
+      "batch": "context-boundary.json",
+      "model": "glm-5.3",
+      "inputRepeatCount": 262128,
+      "requestedMaxTokens": 1,
+      "httpStatus": 200,
+      "responseModel": "glm-5.3",
+      "usage": {
+        "completion_tokens": 1,
+        "completion_tokens_details": {
+          "reasoning_tokens": 1
+        },
+        "prompt_tokens": 262143,
+        "total_tokens": 262144
+      }
+    },
+    {
+      "batch": "context-boundary.json",
+      "model": "glm-5.3",
+      "inputRepeatCount": 262144,
+      "requestedMaxTokens": 1,
+      "httpStatus": 200,
+      "responseModel": "glm-5.3",
+      "usage": {
+        "completion_tokens": 1,
+        "completion_tokens_details": {
+          "reasoning_tokens": 1
+        },
+        "prompt_tokens": 262159,
+        "prompt_tokens_details": {
+          "cached_tokens": 209920
+        },
+        "total_tokens": 262160
+      }
+    },
+    {
+      "batch": "context-boundary.json",
+      "model": "glm-5.3-flash",
+      "inputRepeatCount": 262128,
+      "requestedMaxTokens": 1,
+      "httpStatus": 200,
+      "responseModel": "glm-5.3-flash",
+      "usage": {
+        "completion_tokens": 1,
+        "completion_tokens_details": {
+          "reasoning_tokens": 1
+        },
+        "prompt_tokens": 262143,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "total_tokens": 262144
+      }
+    },
+    {
+      "batch": "context-boundary.json",
+      "model": "glm-5.3-flash",
+      "inputRepeatCount": 262144,
+      "requestedMaxTokens": 1,
+      "httpStatus": 200,
+      "responseModel": "glm-5.3-flash",
+      "usage": {
+        "completion_tokens": 1,
+        "completion_tokens_details": {
+          "reasoning_tokens": 1
+        },
+        "prompt_tokens": 262159,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "total_tokens": 262160
+      }
+    },
+    {
+      "batch": "context-extra.json",
+      "model": "glm-5.3",
+      "inputRepeatCount": 1048576,
+      "requestedMaxTokens": 1,
+      "httpStatus": 400,
+      "error": "Prompt 超长"
+    },
+    {
+      "batch": "context-extra.json",
+      "model": "glm-5.3-flash",
+      "inputRepeatCount": 1048576,
+      "requestedMaxTokens": 1,
+      "httpStatus": 400,
+      "error": "Prompt exceeds max length"
+    },
+    {
+      "batch": "context-extra.json",
+      "model": "glm-5.1",
+      "inputRepeatCount": 196000,
+      "requestedMaxTokens": 1,
+      "error": "The operation was aborted due to timeout"
+    },
+    {
+      "batch": "context-extra.json",
+      "model": "kimi-k3",
+      "inputRepeatCount": 1000000,
+      "requestedMaxTokens": 1,
+      "error": "The operation was aborted due to timeout"
+    },
+    {
+      "batch": "context-extra.json",
+      "model": "glm-5.2",
+      "inputRepeatCount": 1000000,
+      "requestedMaxTokens": 1,
+      "error": "The operation was aborted due to timeout"
+    },
+    {
+      "batch": "context-glm-million.json",
+      "model": "glm-5.3",
+      "inputRepeatCount": 1048000,
+      "requestedMaxTokens": 1,
+      "httpStatus": 200,
+      "responseModel": "glm-5.3",
+      "usage": {
+        "completion_tokens": 557,
+        "completion_tokens_details": {
+          "reasoning_tokens": 551
+        },
+        "prompt_tokens": 1048015,
+        "prompt_tokens_details": {
+          "cached_tokens": 249984
+        },
+        "total_tokens": 1048572
+      }
+    },
+    {
+      "batch": "context-glm-million.json",
+      "model": "glm-5.3-flash",
+      "inputRepeatCount": 1048000,
+      "requestedMaxTokens": 1,
+      "error": "The operation was aborted due to timeout"
+    },
+    {
+      "batch": "context-glm.json",
+      "model": "glm-5.3",
+      "inputRepeatCount": 200000,
+      "requestedMaxTokens": 1,
+      "httpStatus": 200,
+      "responseModel": "glm-5.3",
+      "usage": {
+        "completion_tokens": 1,
+        "completion_tokens_details": {
+          "reasoning_tokens": 1
+        },
+        "prompt_tokens": 200015,
+        "total_tokens": 200016
+      }
+    },
+    {
+      "batch": "context-glm.json",
+      "model": "glm-5.3",
+      "inputRepeatCount": 210000,
+      "requestedMaxTokens": 1,
+      "httpStatus": 200,
+      "responseModel": "glm-5.3",
+      "usage": {
+        "completion_tokens": 1,
+        "completion_tokens_details": {
+          "reasoning_tokens": 1
+        },
+        "prompt_tokens": 210015,
+        "total_tokens": 210016
+      }
+    },
+    {
+      "batch": "context-glm.json",
+      "model": "glm-5.3-flash",
+      "inputRepeatCount": 200000,
+      "requestedMaxTokens": 1,
+      "httpStatus": 200,
+      "responseModel": "glm-5.3-flash",
+      "usage": {
+        "completion_tokens": 1,
+        "completion_tokens_details": {
+          "reasoning_tokens": 1
+        },
+        "prompt_tokens": 200015,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "total_tokens": 200016
+      }
+    },
+    {
+      "batch": "context-glm.json",
+      "model": "glm-5.3-flash",
+      "inputRepeatCount": 210000,
+      "requestedMaxTokens": 1,
+      "httpStatus": 200,
+      "responseModel": "glm-5.3-flash",
+      "usage": {
+        "completion_tokens": 1,
+        "completion_tokens_details": {
+          "reasoning_tokens": 1
+        },
+        "prompt_tokens": 210015,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "total_tokens": 210016
+      }
+    },
+    {
+      "batch": "context-input.json",
+      "model": "deepseek-v4.1-flash",
+      "inputRepeatCount": 1100000,
+      "requestedMaxTokens": 1,
+      "httpStatus": 400,
+      "error": "input token limit is 1048576"
+    },
+    {
+      "batch": "context-input.json",
+      "model": "deepseek-v4-flash",
+      "inputRepeatCount": 1100000,
+      "requestedMaxTokens": 1,
+      "httpStatus": 400,
+      "error": "Prompt length exceeds: the prompt length 1100007 must less than the maximum input length 1044480"
+    },
+    {
+      "batch": "context-input.json",
+      "model": "glm-5.3",
+      "inputRepeatCount": 1100000,
+      "requestedMaxTokens": 1,
+      "httpStatus": 400,
+      "error": "Prompt 超长"
+    },
+    {
+      "batch": "context-input.json",
+      "model": "qwen3-30b-a3b",
+      "inputRepeatCount": 1100000,
+      "requestedMaxTokens": 1,
+      "httpStatus": 400,
+      "error": "This model's maximum context length is 131072 tokens. However, you requested 1100012 tokens (1100011 in the messages, 1 in the completion). Please reduce the length of the messages or completion. None"
+    },
+    {
+      "batch": "context-input.json",
+      "model": "qwen3-32b",
+      "inputRepeatCount": 1100000,
+      "requestedMaxTokens": 1,
+      "httpStatus": 400,
+      "error": "This model's maximum context length is 131072 tokens. However, you requested 1100012 tokens (1100011 in the messages, 1 in the completion). Please reduce the length of the messages or completion. None"
+    },
+    {
+      "batch": "context-input.json",
+      "model": "deepseek-v4.1-flash-1017",
+      "inputRepeatCount": 1100000,
+      "requestedMaxTokens": 1,
+      "httpStatus": 400,
+      "error": "Prompt length exceeds: the prompt length 1100033 must less than the maximum input length 1044480"
+    },
+    {
+      "batch": "context-input.json",
+      "model": "kimi-k3",
+      "inputRepeatCount": 1100000,
+      "requestedMaxTokens": 1,
+      "httpStatus": 400,
+      "error": "Invalid request: Your request exceeded model token limit: 1048576 (requested: 1100091)"
+    },
+    {
+      "batch": "context-input.json",
+      "model": "glm-5.3-flash",
+      "inputRepeatCount": 1100000,
+      "requestedMaxTokens": 1,
+      "httpStatus": 400,
+      "error": "Prompt exceeds max length"
+    },
+    {
+      "batch": "context-input.json",
+      "model": "glm-5.1",
+      "inputRepeatCount": 1100000,
+      "requestedMaxTokens": 1,
+      "httpStatus": 400,
+      "error": "Prompt length exceeds: the prompt length 1100008 must less than the maximum input length 196608"
+    },
+    {
+      "batch": "context-input.json",
+      "model": "deepseek-v4.1-flash-0930",
+      "inputRepeatCount": 1100000,
+      "requestedMaxTokens": 1,
+      "httpStatus": 400,
+      "error": "input token limit is 1048576"
+    },
+    {
+      "batch": "context-input.json",
+      "model": "glm-5.2",
+      "inputRepeatCount": 1100000,
+      "requestedMaxTokens": 1,
+      "httpStatus": 400,
+      "error": "Prompt length exceeds: the prompt length 1100015 must less than the maximum input length 1044480"
+    },
+    {
+      "batch": "context-input.json",
+      "model": "deepseek-v4-flash-0731",
+      "inputRepeatCount": 1100000,
+      "requestedMaxTokens": 1,
+      "httpStatus": 400,
+      "error": "input token limit is 1048576"
+    },
+    {
+      "batch": "context-input.json",
+      "model": "kimi-k2.6",
+      "inputRepeatCount": 1100000,
+      "requestedMaxTokens": 1,
+      "httpStatus": 400,
+      "error": "Prompt length exceeds: the prompt length 1100011 must less than the maximum input length 262144"
+    },
+    {
+      "batch": "context-limits.json",
+      "model": "deepseek-v4.1-flash",
+      "requestedMaxTokens": 2097152,
+      "httpStatus": 400,
+      "error": "parameter check failed, max_tokens range is [1, 393216]"
+    },
+    {
+      "batch": "context-limits.json",
+      "model": "deepseek-v4-flash",
+      "requestedMaxTokens": 2097152,
+      "httpStatus": 400,
+      "error": "InvalidParamException: request param validation error, Invalid max_tokens value: 2097152, max_tokens must be between 0 and 393216."
+    },
+    {
+      "batch": "context-limits.json",
+      "model": "glm-5.3",
+      "requestedMaxTokens": 2097152,
+      "httpStatus": 400,
+      "error": "max_tokens参数非法：限制数值范围[1,131072]"
+    },
+    {
+      "batch": "context-limits.json",
+      "model": "qwen3-30b-a3b",
+      "requestedMaxTokens": 2097152,
+      "httpStatus": 400,
+      "error": "This model's maximum context length is 131072 tokens. However, you requested 2097163 tokens (11 in the messages, 2097152 in the completion). Please reduce the length of the messages or completion. None"
+    },
+    {
+      "batch": "context-limits.json",
+      "model": "qwen3-32b",
+      "requestedMaxTokens": 2097152,
+      "httpStatus": 400,
+      "error": "This model's maximum context length is 131072 tokens. However, you requested 2097163 tokens (11 in the messages, 2097152 in the completion). Please reduce the length of the messages or completion. None"
+    },
+    {
+      "batch": "context-limits.json",
+      "model": "deepseek-v4.1-flash-1017",
+      "requestedMaxTokens": 2097152,
+      "httpStatus": 400,
+      "error": "InvalidParamException: request param validation error, Invalid max_tokens value: 2097152, max_tokens must be between 0 and 393216."
+    },
+    {
+      "batch": "context-limits.json",
+      "model": "kimi-k3",
+      "requestedMaxTokens": 2097152,
+      "httpStatus": 200,
+      "responseModel": "kimi-k3",
+      "usage": {
+        "prompt_tokens": 88,
+        "completion_tokens": 54,
+        "total_tokens": 142,
+        "completion_tokens_details": {
+          "reasoning_tokens": 40
+        },
+        "prompt_tokens_details": {}
+      }
+    },
+    {
+      "batch": "context-limits.json",
+      "model": "glm-5.3-flash",
+      "requestedMaxTokens": 2097152,
+      "httpStatus": 429,
+      "error": "Too many requests, the rate limit is 2000000 tokens per minute."
+    },
+    {
+      "batch": "context-limits.json",
+      "model": "glm-5.1",
+      "requestedMaxTokens": 2097152,
+      "httpStatus": 400,
+      "error": "InvalidParamException: request param validation error, Invalid max_tokens value: 2097152, max_tokens must be between 0 and 131072."
+    },
+    {
+      "batch": "context-limits.json",
+      "model": "glm-5.2",
+      "requestedMaxTokens": 2097152,
+      "httpStatus": 400,
+      "error": "InvalidParamException: request param validation error, Invalid max_tokens value: 2097152, max_tokens must be between 0 and 131072."
+    },
+    {
+      "batch": "context-limits.json",
+      "model": "kimi-k2.6",
+      "requestedMaxTokens": 2097152,
+      "httpStatus": 200,
+      "responseModel": "kimi-k2.6",
+      "usage": {
+        "prompt_tokens": 11,
+        "total_tokens": 51,
+        "completion_tokens": 40,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 34
+        }
+      }
+    },
+    {
+      "batch": "context-limits.json",
+      "model": "deepseek-v4-flash-0731",
+      "requestedMaxTokens": 2097152,
+      "httpStatus": 400,
+      "error": "parameter check failed, max_tokens range is [1, 393216]"
+    },
+    {
+      "batch": "context-success.json",
+      "model": "deepseek-v4.1-flash",
+      "inputRepeatCount": 1000000,
+      "requestedMaxTokens": 1,
+      "httpStatus": 200,
+      "responseModel": "deepseek-v4.1-flash",
+      "usage": {
+        "prompt_tokens": 1000033,
+        "completion_tokens": 1,
+        "total_tokens": 1000034,
+        "completion_tokens_details": {
+          "reasoning_tokens": 1
+        }
+      }
+    },
+    {
+      "batch": "context-success.json",
+      "model": "deepseek-v4-flash",
+      "inputRepeatCount": 1000000,
+      "requestedMaxTokens": 1,
+      "httpStatus": 200,
+      "responseModel": "deepseek-v4-flash",
+      "usage": {
+        "prompt_tokens": 1000007,
+        "total_tokens": 1000118,
+        "completion_tokens": 111,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 110
+        }
+      }
+    },
+    {
+      "batch": "context-success.json",
+      "model": "glm-5.3",
+      "inputRepeatCount": 250000,
+      "requestedMaxTokens": 1,
+      "httpStatus": 200,
+      "responseModel": "glm-5.3",
+      "usage": {
+        "completion_tokens": 1,
+        "completion_tokens_details": {
+          "reasoning_tokens": 1
+        },
+        "prompt_tokens": 250015,
+        "prompt_tokens_details": {
+          "cached_tokens": 199936
+        },
+        "total_tokens": 250016
+      }
+    },
+    {
+      "batch": "context-success.json",
+      "model": "qwen3-30b-a3b",
+      "inputRepeatCount": 130000,
+      "requestedMaxTokens": 1,
+      "httpStatus": 200,
+      "responseModel": "qwen3-30b-a3b",
+      "usage": {
+        "prompt_tokens": 130011,
+        "total_tokens": 130012,
+        "completion_tokens": 1
+      }
+    },
+    {
+      "batch": "context-success.json",
+      "model": "qwen3-32b",
+      "inputRepeatCount": 130000,
+      "requestedMaxTokens": 1,
+      "httpStatus": 200,
+      "responseModel": "qwen3-32b",
+      "usage": {
+        "prompt_tokens": 130011,
+        "total_tokens": 130012,
+        "completion_tokens": 1
+      }
+    },
+    {
+      "batch": "context-success.json",
+      "model": "deepseek-v4.1-flash-1017",
+      "inputRepeatCount": 1000000,
+      "requestedMaxTokens": 1,
+      "httpStatus": 200,
+      "responseModel": "deepseek-v4.1-flash-1017",
+      "usage": {
+        "prompt_tokens": 1000033,
+        "total_tokens": 1000065,
+        "completion_tokens": 32,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 31
+        }
+      }
+    },
+    {
+      "batch": "context-success.json",
+      "model": "kimi-k3",
+      "inputRepeatCount": 250000,
+      "requestedMaxTokens": 1,
+      "httpStatus": 200,
+      "responseModel": "kimi-k3",
+      "usage": {
+        "prompt_tokens": 250088,
+        "completion_tokens": 1,
+        "total_tokens": 250089,
+        "completion_tokens_details": {
+          "reasoning_tokens": 1
+        },
+        "prompt_tokens_details": {}
+      }
+    },
+    {
+      "batch": "context-success.json",
+      "model": "glm-5.3-flash",
+      "inputRepeatCount": 250000,
+      "requestedMaxTokens": 1,
+      "httpStatus": 200,
+      "responseModel": "glm-5.3-flash",
+      "usage": {
+        "completion_tokens": 1,
+        "completion_tokens_details": {
+          "reasoning_tokens": 1
+        },
+        "prompt_tokens": 250015,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "total_tokens": 250016
+      }
+    },
+    {
+      "batch": "context-success.json",
+      "model": "glm-5.1",
+      "inputRepeatCount": 250000,
+      "requestedMaxTokens": 1,
+      "httpStatus": 400,
+      "error": "Prompt length exceeds: the prompt length 250008 must less than the maximum input length 196608"
+    },
+    {
+      "batch": "context-success.json",
+      "model": "deepseek-v4.1-flash-0930",
+      "inputRepeatCount": 1000000,
+      "requestedMaxTokens": 1,
+      "httpStatus": 200,
+      "responseModel": "deepseek-v4.1-flash",
+      "usage": {
+        "prompt_tokens": 1000033,
+        "completion_tokens": 1,
+        "total_tokens": 1000034,
+        "prompt_tokens_details": {
+          "cached_tokens": 999424
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 1
+        }
+      }
+    },
+    {
+      "batch": "context-success.json",
+      "model": "glm-5.2",
+      "inputRepeatCount": 250000,
+      "requestedMaxTokens": 1,
+      "error": "The operation was aborted due to timeout"
+    },
+    {
+      "batch": "context-success.json",
+      "model": "deepseek-v4-flash-0731",
+      "inputRepeatCount": 1000000,
+      "requestedMaxTokens": 1,
+      "httpStatus": 200,
+      "responseModel": "deepseek-v4-flash-0731",
+      "usage": {
+        "prompt_tokens": 1000086,
+        "completion_tokens": 1,
+        "total_tokens": 1000087,
+        "completion_tokens_details": {
+          "reasoning_tokens": 1
+        }
+      }
+    },
+    {
+      "batch": "context-success.json",
+      "model": "kimi-k2.6",
+      "inputRepeatCount": 250000,
+      "requestedMaxTokens": 1,
+      "error": "The operation was aborted due to timeout"
+    },
+    {
+      "batch": "models-probe.json",
+      "model": "deepseek-v4.1-flash",
+      "requestedMaxTokens": 32,
+      "httpStatus": 200,
+      "responseModel": "deepseek-v4.1-flash",
+      "usage": {
+        "prompt_tokens": 33,
+        "completion_tokens": 21,
+        "total_tokens": 54,
+        "completion_tokens_details": {
+          "reasoning_tokens": 21
+        }
+      }
+    },
+    {
+      "batch": "models-probe.json",
+      "model": "deepseek-v4-flash",
+      "requestedMaxTokens": 32,
+      "httpStatus": 200,
+      "responseModel": "deepseek-v4-flash",
+      "usage": {
+        "prompt_tokens": 7,
+        "total_tokens": 50,
+        "completion_tokens": 43,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 39
+        }
+      }
+    },
+    {
+      "batch": "models-probe.json",
+      "model": "glm-5.3",
+      "requestedMaxTokens": 32,
+      "httpStatus": 200,
+      "responseModel": "glm-5.3",
+      "usage": {
+        "completion_tokens": 32,
+        "completion_tokens_details": {
+          "reasoning_tokens": 32
+        },
+        "prompt_tokens": 15,
+        "total_tokens": 47
+      }
+    },
+    {
+      "batch": "models-probe.json",
+      "model": "qwen3-30b-a3b",
+      "requestedMaxTokens": 32,
+      "httpStatus": 200,
+      "responseModel": "qwen3-30b-a3b",
+      "usage": {
+        "prompt_tokens": 11,
+        "total_tokens": 43,
+        "completion_tokens": 32
+      }
+    },
+    {
+      "batch": "models-probe.json",
+      "model": "kimi-k3.1-pro",
+      "requestedMaxTokens": 32,
+      "httpStatus": 404,
+      "error": "Invalid model."
+    },
+    {
+      "batch": "models-probe.json",
+      "model": "kimi-k3-test-1009",
+      "requestedMaxTokens": 32,
+      "httpStatus": 404,
+      "error": "Invalid model."
+    },
+    {
+      "batch": "models-probe.json",
+      "model": "openpangu-2.0-pro",
+      "requestedMaxTokens": 32,
+      "httpStatus": 403,
+      "error": "Invalid request because you do not have access to it."
+    },
+    {
+      "batch": "models-probe.json",
+      "model": "qwen3-32b",
+      "requestedMaxTokens": 32,
+      "httpStatus": 200,
+      "responseModel": "qwen3-32b",
+      "usage": {
+        "prompt_tokens": 11,
+        "total_tokens": 43,
+        "completion_tokens": 32
+      }
+    },
+    {
+      "batch": "models-probe.json",
+      "model": "glm-5.2-zx",
+      "requestedMaxTokens": 32,
+      "httpStatus": 404,
+      "error": "No available backend service was found."
+    },
+    {
+      "batch": "models-probe.json",
+      "model": "deepseek-v4.1-flash-1017",
+      "requestedMaxTokens": 32,
+      "httpStatus": 200,
+      "responseModel": "deepseek-v4.1-flash-1017",
+      "usage": {
+        "prompt_tokens": 33,
+        "total_tokens": 92,
+        "completion_tokens": 59,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 55
+        }
+      }
+    },
+    {
+      "batch": "models-probe.json",
+      "model": "kimi-k3",
+      "requestedMaxTokens": 32,
+      "httpStatus": 200,
+      "responseModel": "kimi-k3",
+      "usage": {
+        "prompt_tokens": 88,
+        "completion_tokens": 32,
+        "total_tokens": 120,
+        "completion_tokens_details": {
+          "reasoning_tokens": 32
+        },
+        "prompt_tokens_details": {}
+      }
+    },
+    {
+      "batch": "models-probe.json",
+      "model": "glm-5.2-a3",
+      "requestedMaxTokens": 32,
+      "httpStatus": 404,
+      "error": "Invalid model."
+    },
+    {
+      "batch": "models-probe.json",
+      "model": "glm-5.3-test",
+      "requestedMaxTokens": 32,
+      "httpStatus": 404,
+      "error": "Invalid model."
+    },
+    {
+      "batch": "models-probe.json",
+      "model": "glm-5.3-flash",
+      "requestedMaxTokens": 32,
+      "httpStatus": 200,
+      "responseModel": "glm-5.3-flash",
+      "usage": {
+        "completion_tokens": 32,
+        "completion_tokens_details": {
+          "reasoning_tokens": 27
+        },
+        "prompt_tokens": 15,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "total_tokens": 47
+      }
+    },
+    {
+      "batch": "models-probe.json",
+      "model": "openpangu-2.0-flash",
+      "requestedMaxTokens": 32,
+      "httpStatus": 403,
+      "error": "Invalid request because you do not have access to it."
+    },
+    {
+      "batch": "models-probe.json",
+      "model": "glm-5.1",
+      "requestedMaxTokens": 32,
+      "httpStatus": 200,
+      "responseModel": "glm-5.1",
+      "usage": {
+        "prompt_tokens": 8,
+        "total_tokens": 110,
+        "completion_tokens": 102,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 99
+        }
+      }
+    },
+    {
+      "batch": "models-probe.json",
+      "model": "deepseek-v4.1-flash-0930",
+      "requestedMaxTokens": 32,
+      "httpStatus": 200,
+      "responseModel": "deepseek-v4.1-flash",
+      "usage": {
+        "prompt_tokens": 33,
+        "completion_tokens": 32,
+        "total_tokens": 65,
+        "completion_tokens_details": {
+          "reasoning_tokens": 32
+        }
+      }
+    },
+    {
+      "batch": "models-probe.json",
+      "model": "deepseek-v4.1-flash-bnt",
+      "requestedMaxTokens": 32,
+      "httpStatus": 404,
+      "error": "Invalid model."
+    },
+    {
+      "batch": "models-probe.json",
+      "model": "glm-5.2",
+      "requestedMaxTokens": 32,
+      "httpStatus": 200,
+      "responseModel": "glm-5.2",
+      "usage": {
+        "prompt_tokens": 15,
+        "total_tokens": 102,
+        "completion_tokens": 87,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 84
+        }
+      }
+    },
+    {
+      "batch": "models-probe.json",
+      "model": "deepseek-v4-flash-0731",
+      "requestedMaxTokens": 32,
+      "httpStatus": 200,
+      "responseModel": "deepseek-v4-flash-0731",
+      "usage": {
+        "prompt_tokens": 86,
+        "completion_tokens": 20,
+        "total_tokens": 106,
+        "completion_tokens_details": {
+          "reasoning_tokens": 15
+        }
+      }
+    },
+    {
+      "batch": "models-probe.json",
+      "model": "glm-5.2-harmony",
+      "requestedMaxTokens": 32,
+      "httpStatus": 404,
+      "error": "Invalid model."
+    },
+    {
+      "batch": "models-probe.json",
+      "model": "kimi-k2.6",
+      "requestedMaxTokens": 32,
+      "httpStatus": 200,
+      "responseModel": "kimi-k2.6",
+      "usage": {
+        "prompt_tokens": 11,
+        "total_tokens": 46,
+        "completion_tokens": 35,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 32
+        }
+      }
+    },
+    {
+      "batch": "models-probe.json",
+      "model": "deepseek-v4-pro",
+      "requestedMaxTokens": 32,
+      "httpStatus": 404,
+      "error": "Invalid model."
+    },
+    {
+      "batch": "models-probe.json",
+      "model": "kimi-k3-1019",
+      "requestedMaxTokens": 32,
+      "httpStatus": 404,
+      "error": "Invalid model."
+    },
+    {
+      "batch": "models-probe.json",
+      "model": "glm.5.2-arkts-spark",
+      "requestedMaxTokens": 32,
+      "httpStatus": 403,
+      "error": "Invalid request because you do not have access to it."
+    }
+  ],
+  "retests": [
+    {
+      "source": "context-retest.json",
+      "date": "2026-10-28T06:30:16.443Z",
+      "timeoutSeconds": 240,
+      "stream": false,
+      "max_tokens": 1,
+      "records": [
+        {
+          "model": "glm-5.1",
+          "inputRepeatCount": 196000,
+          "status": 200,
+          "seconds": 13,
+          "usage": {
+            "prompt_tokens": 196008,
+            "total_tokens": 196017,
+            "completion_tokens": 9,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 9
+            }
+          },
+          "responseModel": "glm-5.1"
+        },
+        {
+          "model": "glm-5.2",
+          "inputRepeatCount": 250000,
+          "status": 200,
+          "seconds": 26,
+          "usage": {
+            "prompt_tokens": 250015,
+            "total_tokens": 250503,
+            "completion_tokens": 488,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 488
+            }
+          },
+          "responseModel": "glm-5.2"
+        },
+        {
+          "model": "glm-5.2",
+          "inputRepeatCount": 1000000,
+          "status": 200,
+          "seconds": 20,
+          "usage": {
+            "prompt_tokens": 1000015,
+            "total_tokens": 1000035,
+            "completion_tokens": 20,
+            "prompt_tokens_details": {
+              "cached_tokens": 1000000
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 20
+            }
+          },
+          "responseModel": "glm-5.2"
+        },
+        {
+          "model": "glm-5.3-flash",
+          "inputRepeatCount": 1048000,
+          "status": 200,
+          "seconds": 99,
+          "usage": {
+            "completion_tokens": 1,
+            "completion_tokens_details": {
+              "reasoning_tokens": 1
+            },
+            "prompt_tokens": 1048015,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            },
+            "total_tokens": 1048016
+          },
+          "responseModel": "glm-5.3-flash"
+        },
+        {
+          "model": "kimi-k3",
+          "inputRepeatCount": 1000000,
+          "status": 200,
+          "seconds": 22,
+          "usage": {
+            "prompt_tokens": 1000088,
+            "completion_tokens": 1,
+            "total_tokens": 1000089,
+            "completion_tokens_details": {
+              "reasoning_tokens": 1
+            },
+            "prompt_tokens_details": {}
+          },
+          "responseModel": "kimi-k3"
+        },
+        {
+          "model": "kimi-k2.6",
+          "inputRepeatCount": 250000,
+          "status": 504,
+          "seconds": 180
+        }
+      ]
+    },
+    {
+      "source": "kimi-k26-retest.json",
+      "date": "2026-10-28T06:34:13.553Z",
+      "timeoutSeconds": 240,
+      "stream": false,
+      "requestedMaxTokens": 1,
+      "records": [
+        {
+          "model": "kimi-k2.6",
+          "inputRepeatCount": 250000,
+          "status": 504,
+          "seconds": 180
+        }
+      ]
+    }
+  ]
+}
