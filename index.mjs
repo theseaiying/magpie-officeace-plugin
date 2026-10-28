@@ -378,18 +378,105 @@ async function permission(a) {
   }
 }
 
-// subscriptionOf is the plan and its credits, V11-signed at the account's
-// gateway host, as the OfficeAce client's subscription card reads it.
-async function subscriptionOf(a) {
-  const url = hostOf(a) + "/v1/subscription"
-  const headers = signV11({ method: "GET", url, credential: credentialOf(a), headers: { "x-subscription-type": "v2" } })
-  const res = await fetch(url, { headers, signal: AbortSignal.timeout(20000) })
+// controlCall asks the subscription API at the account's gateway host,
+// V11-signed, and keeps the status the caller needs to tell a lapsed
+// sign-in from a rate limit.
+async function controlCall(a, method, path, bodyText) {
+  const url = hostOf(a) + path
+  const headers = signV11({
+    method,
+    url,
+    credential: credentialOf(a),
+    headers: { "x-subscription-type": "v2" },
+    ...(bodyText === undefined ? {} : { bodyText, contentType: "application/json" }),
+  })
+  const res = await fetch(url, {
+    method,
+    headers,
+    ...(bodyText === undefined ? {} : { body: bodyText }),
+    signal: AbortSignal.timeout(20000),
+  })
   const text = await res.text()
   let json = null
   try {
     json = JSON.parse(text)
   } catch {}
-  return json
+  return { status: res.status, ok: res.ok, json, text }
+}
+
+// subscriptionOf is the plan and its credits, V11-signed at the account's
+// gateway host, as the OfficeAce client's subscription card reads it.
+async function subscriptionOf(a) {
+  return (await controlCall(a, "GET", "/v1/subscription")).json
+}
+
+// claimBonus presses the subscription card's one claim: the day's sign-in
+// reward and any one-time newcomer gift, in one idempotent POST that answers
+// the updated subscription. Its body is the empty object the client sends.
+function claimBonus(a) {
+  return controlCall(a, "POST", "/v1/subscription/bonus/claim", "{}")
+}
+
+// bonusList is a subscription's bonus entries, keyed by what names one
+// across two reads: its activity id, its resource id, else its name.
+function bonusList(sub) {
+  const items = Array.isArray(sub?.bonus_skus) ? sub.bonus_skus : []
+  const out = []
+  for (const item of items) {
+    if (!item || typeof item !== "object") continue
+    const key = String(item.activity_id ?? item.cbc_resource_id ?? item.activity_name ?? "").trim()
+    if (!key) continue
+    out.push({ key, total: Number(item.points) || 0, used: Number(item.current_value) || 0 })
+  }
+  return out
+}
+
+// gainedBetween counts what a claim added: each bonus's remaining amount
+// grew by this much. One seen for the first time counts its remaining, not
+// its whole grant, which may have come earlier.
+function gainedBetween(before, after) {
+  const previous = new Map()
+  for (const b of bonusList(before)) previous.set(b.key, Math.max(0, b.total - b.used))
+  let gained = 0
+  for (const b of bonusList(after)) {
+    const left = Math.max(0, b.total - b.used)
+    gained += Math.max(0, left - (previous.get(b.key) ?? 0))
+  }
+  return gained
+}
+
+// vendorError is the refusal the subscription or claim answer carries.
+function vendorError(json) {
+  if (!json || typeof json !== "object") return ""
+  if (json.error_code) {
+    const msg = json.error_msg || json.message || ""
+    return `${json.error_code}${msg ? `: ${msg}` : ""}`
+  }
+  const code = Number.parseInt(json.code, 10)
+  if (Number.isFinite(code) && code !== 0) {
+    const msg = json.message || json.error_msg || ""
+    return `${code}${msg ? `: ${msg}` : ""}`
+  }
+  return ""
+}
+
+// redacted keeps a vendor message from echoing a credential into the
+// check-in result Magpie keeps.
+function redacted(a, text) {
+  let out = String(text ?? "")
+  for (const secret of [a?.access, a?.secret, a?.securityToken, a?.appSecret, a?.refresh]) {
+    if (typeof secret === "string" && secret) out = out.split(secret).join("[redacted]")
+  }
+  return out.length > 200 ? out.slice(0, 197) + "..." : out
+}
+
+// baselineOf is a subscription answer usable as a balance: its bonus list,
+// no vendor error, and an object rather than an error page. Anything else
+// would make every bonus look new.
+function baselineOf(res) {
+  const json = res?.json
+  return res?.ok && json && typeof json === "object" && !Array.isArray(json)
+    && !vendorError(json) && Array.isArray(json.bonus_skus) ? json : null
 }
 
 const TIER_NAMES = { trial: "试用版", starter: "入门版", standard: "标准版", advanced: "高级版", premium: "尊享版", ultimate: "旗舰版" }
@@ -877,6 +964,59 @@ function makePlugin() {
           return { error: e?.message ?? String(e), signIn: "kept" }
         }
       },
+      // the day's rewards, as the subscription card's claim takes them: one
+      // idempotent POST, the balance read before and after to say what came.
+      // The same call hands over the daily sign-in reward and any one-time
+      // newcomer gift, so there is nothing else to press.
+      async checkin(getAuth) {
+        const auth = await getAuth()
+        if (auth?.type === "api")
+          return { outcome: "inactive", message: "an imported gateway key has no claim credentials" }
+        if (auth?.type !== "oauth" || !auth.access || !auth.secret)
+          return { outcome: "failed", message: "OfficeAce isn't signed in; sign in again in magpie" }
+        try {
+          const a = await current(client, auth)
+          if (!a.access || !a.secret)
+            return { outcome: "failed", message: "the account's control-plane credentials have ended; sign in again in magpie" }
+          if (a.expires && Date.now() >= a.expires)
+            return { outcome: "failed", message: "the account's temporary credentials have ended; let magpie renew the account, or sign in again" }
+
+          // A balance read that fails for another reason doesn't block the
+          // claim; a refused sign-in does.
+          const read = await controlCall(a, "GET", "/v1/subscription")
+          if (read.status === 401 || read.status === 403)
+            return { outcome: "failed", message: "the subscription was refused; let magpie renew the account, or sign in again" }
+          if (read.status === 429) return { outcome: "failed", message: "the subscription is rate limited; retry later" }
+          const before = baselineOf(read)
+
+          const claim = await claimBonus(a)
+          if (claim.status === 401 || claim.status === 403)
+            return { outcome: "failed", message: "the claim was refused; let magpie renew the account, or sign in again" }
+          if (claim.status === 429) return { outcome: "failed", message: "the claim is rate limited; retry later" }
+          if (!claim.ok) {
+            const why = redacted(a, vendorError(claim.json) || claim.text)
+            return { outcome: "failed", message: `the claim failed: HTTP ${claim.status}${why ? `: ${why}` : ""}` }
+          }
+          const why = redacted(a, vendorError(claim.json))
+          if (why) return { outcome: "failed", message: `the claim was refused: ${why}` }
+
+          // The claim answer carries only what this claim granted (empty
+          // when today was already settled), not the ledger: read the
+          // subscription again for the full balance. A failed re-read must
+          // not turn a claim that succeeded into a retryable failure.
+          let updated = null
+          try {
+            updated = await controlCall(a, "GET", "/v1/subscription")
+          } catch {}
+          const after = baselineOf(updated)
+          if (!before || !after) return { outcome: "done", message: "check-in acknowledged (balance unavailable)" }
+          const gained = Math.floor(gainedBetween(before, after))
+          if (gained > 0) return { outcome: "claimed", credit: gained, message: `claimed ${gained} credits` }
+          return { outcome: "done", message: "no reward left to claim today" }
+        } catch (e) {
+          return { outcome: "failed", message: redacted(auth, e?.message ?? String(e)) }
+        }
+      },
       methods: [
         {
           type: "oauth",
@@ -947,7 +1087,8 @@ export const _internal = {
   signV4, signV11, dpopProof, dpopKeyPair, pkce,
   baseUrlOf, hostOf, basicOf,
   mergeToken, claimsOf, refreshable, stale, fresh, renew, renewed, renewing, refreshed,
-  permission, subscriptionOf, usageOf, liveModels,
+  permission, controlCall, subscriptionOf, claimBonus, bonusList, gainedBetween, vendorError, redacted,
+  usageOf, liveModels,
   authorizeUrl, pollCode, exchange, success,
   fitBody, aggregated, explained, gatewayFetch, NO_THINKING, TINY_MAX_TOKENS, THINKING_ALLOWANCE,
   EXHAUSTED, EXHAUSTED_HINT,

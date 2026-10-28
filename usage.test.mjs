@@ -1,11 +1,14 @@
 // auth.usage: the account's credits, from its subscription at the gateway,
 // as the OfficeAce client's card reads them (total minus used, the expired
 // entries not counted).
-import { test, expect, afterEach } from "bun:test"
+import { test, expect, afterEach, setSystemTime } from "bun:test"
 import { OfficeAceAuthPlugin, _internal } from "./index.mjs"
 
 const real = globalThis.fetch
-afterEach(() => (globalThis.fetch = real))
+afterEach(() => {
+  globalThis.fetch = real
+  setSystemTime()
+})
 
 const ok = (data) => new Response(JSON.stringify(data), { status: 200 })
 
@@ -49,6 +52,9 @@ const SUB = {
 }
 
 test("a plan's credits and its alive bonuses, the expired not counted", async () => {
+  // the fixture's bonus ends on 2026-10-20: read the card as of the 12th,
+  // when it was still alive
+  setSystemTime(new Date("2026-10-12T00:00:00Z"))
   const calls = serve({ "/v1/subscription": () => ok(SUB) })
   const u = await usageOf(auth())
   expect(u.plan).toBe("标准版")

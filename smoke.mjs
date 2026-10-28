@@ -18,6 +18,7 @@ const TOKENS = {
 }
 const calls = []
 const real = globalThis.fetch
+let claimed = false
 globalThis.fetch = async (url, init = {}) => {
   const u = new URL(String(url))
   calls.push(u.pathname)
@@ -33,7 +34,17 @@ globalThis.fetch = async (url, init = {}) => {
       { headers: { "content-type": "text/event-stream" } },
     )
   if (u.pathname === "/v1/subscription")
-    return Response.json({ skus: [{ sku_code: "officeace.personal.package.standard", sku_name: "标准版", quotas: [{ sku_attr_code: "officeace_points", sku_value: "10000", current_value: "1234" }] }], bonus_skus: [] })
+    return Response.json({
+      skus: [{ sku_code: "officeace.personal.package.standard", sku_name: "标准版", quotas: [{ sku_attr_code: "officeace_points", sku_value: "10000", current_value: "1234" }] }],
+      bonus_skus: claimed
+        ? [{ activity_id: "daily", activity_name: "每日签到", points: "100", current_value: "0" }]
+        : [],
+    })
+  if (u.pathname === "/v1/subscription/bonus/claim") {
+    claimed = true
+    // the claim answer only names what this claim granted; the ledger is read again
+    return Response.json({ bonus_skus: [] })
+  }
   return new Response("", { status: 404 })
 }
 
@@ -72,7 +83,11 @@ try {
   const usage = await hooks.auth.usage(async () => saved)
   ok("the credits are read", usage.plan === "标准版" && usage.windows[0]?.display === "1234 / 10000", usage.windows[0]?.display)
 
-  // 7) magpie's own login shapes are all seen to
+  // 7) the daily reward, from the subscription card's claim
+  const checkin = await hooks.auth.checkin(async () => saved)
+  ok("the daily reward is claimed for its delta", checkin.outcome === "claimed" && checkin.credit === 100, `${checkin.outcome} ${checkin.credit}`)
+
+  // 8) magpie's own login shapes are all seen to
   const api = hooks.auth.methods.find((x) => x.type === "api")
   const imported = await api.authorize({ baseUrl: "https://gw.test/v2", key: "Basic SlM6Uw==" })
   ok("a gateway key imports", imported.type === "success")
@@ -82,7 +97,7 @@ try {
   const iu = await hooks.auth.usage(async () => ({ ...imported, type: "api" }))
   ok("an imported key's card says what it is", iu.plan === "Gateway key")
 
-  // 8) nothing a chat sent carried the plugin's own marks
+  // 9) nothing a chat sent carried the plugin's own marks
   ok("the token endpoint was asked once per sign-in", calls.filter((p) => p === "/v1/oauth2/tokens").length === 1)
 } finally {
   globalThis.fetch = real
